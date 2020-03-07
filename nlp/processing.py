@@ -38,7 +38,6 @@ def pullTexts(textVec):
         print(e)
 
     if raw2 is None:
-        print("oye")
         try:
             raw2 = response2.read().decode('ISO-8859-1')
         except:
@@ -65,4 +64,4 @@ def pullTexts(textVec):
     with open('data.csv','a') as fd:
         fd.write(line)
 
-pullTexts(["http://www.gutenberg.org/cache/epub/17489/pg17489.txt", "french", "http://www.gutenberg.org/cache/epub/135/pg135.txt", "english"])
+pullTexts(["https://www.poetrytranslation.org/poems/the-women-who-really-drove-me-crazy/original", "spanish", "https://www.poetrytranslation.org/poems/the-women-who-really-drove-me-crazy", "english"])
