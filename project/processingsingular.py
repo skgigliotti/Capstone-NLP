@@ -40,13 +40,15 @@ def pullTexts(textVec):
 
     subj = obj.sentiment.subjectivity
 
+    line = [url,lang,len1,pol,subj]
+
     #write information in csv
-    line = (url + "," + lang + "," + str(len1) + "," + str(pol)+ "," + str(subj)+ "," + "\n")
+    with open('whooutput.csv','a') as fd:
+        writer = csv.writer(fd)
+        writer.writerow(line)
 
-    with open('bibleoutput.csv','a') as fd:
-        fd.write(line)
 
-with open('bibleinput.csv') as csvfile:
+with open('whoinput.csv') as csvfile:
     input = csv.reader(csvfile, delimiter=',')
     for row in input:
         pullTexts([row[0],row[1]])

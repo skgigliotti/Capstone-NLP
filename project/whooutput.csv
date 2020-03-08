@@ -1,5 +1,6 @@
-https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public,english,98849,-0.04320774036342904,0.48686998297776685,
-https://www.who.int/fr/emergencies/diseases/novel-coronavirus-2019/advice-for-public,french,72596,-0.10934943181818174,0.5245909090909097,
-https://www.who.int/ar/emergencies/diseases/novel-coronavirus-2019/advice-for-public,arabic,51930,-0.16540027137042057,0.4752600633197646,
-https://www.who.int/ru/emergencies/diseases/novel-coronavirus-2019,russian,83615,-0.19825515796260496,0.4720825274016768,
-https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019,spanish,80635,-0.1910200489745946,0.48763391490664265,
+source,language,numOfWords,polarity,subjectivity
+https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public,english,98849,-0.04320774036342904,0.48686998297776685
+https://www.who.int/ar/emergencies/diseases/novel-coronavirus-2019/advice-for-public,arabic,51930,-0.16540027137042057,0.4752600633197646
+https://www.who.int/fr/emergencies/diseases/novel-coronavirus-2019/advice-for-public,french,72596,-0.10934943181818174,0.5245909090909097
+https://www.who.int/ru/emergencies/diseases/novel-coronavirus-2019,russian,83615,-0.19825515796260496,0.4720825274016768
+https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019,spanish,80636,-0.1910200489745946,0.48763391490664265
