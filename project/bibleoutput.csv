@@ -1,0 +1,11 @@
+source,language,numOfWords,polarity,subjectivity
+http://www.turnbacktogod.com/wp-content/uploads/2011/02/NIV-Bible-PDF.pdf,english,5868981,0.29935161768657864,0.9914004914004914,
+https://ebible.org/pdf/cmn-cu89t/cmn-cu89t_all.pdf,chinese,9543273,0.18473236288800335,0.9929530201342281,
+https://media.ldscdn.org/pdf/lds-scriptures/holy-bible/holy-bible-spa.pdf,spanish,12838859,0.2293924785331082,0.9930946291560101,
+https://www.eergex.fr/images/sampledata/stories/Bible.pdf,french,7059733,0.33172355730509023,0.9873711340206185,
+http://triggs.djvu.org/djvu-editions.com/BIBLES/DRV/Download.pdf,russian,5517044,0.2159175804429437,0.8823091247672253,
+https://www.die-bibel.de/media/articles/pdf/8266.pdf,turkish,1406036,0.2539140527898615,0.8873106060606059,
+https://uuriinshuuder.do.am/pdf/HanBible.pdf,korean,4119435,0.39981105184962606,1.0,
+http://www.arsfloreat.nl/documents/Bijbel.pdf,dutch,8687417,0.27995858541349083,0.9947154471544715,
+https://www.liberliber.it/mediateca/libri/b/bibbia/la_sacra_bibbia/pdf/bibbia_la_sacra_bibbia.pdf,italian,7190950,0.2554530552455357,0.995952380952381,
+https://ebible.org/pdf/arb-vd/arb-vd_all.pdf,arabic,11313815,0.32227904407690605,0.9894602048857368,
