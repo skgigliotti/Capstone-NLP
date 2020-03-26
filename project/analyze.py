@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+import csv
 import matplotlib.pyplot as plt
 import seaborn as seabornInstance
 from sklearn.model_selection import train_test_split
@@ -8,24 +9,24 @@ from sklearn import metrics
 
 #linear regression with guidance from https://towardsdatascience.com/a-beginners-guide-to-linear-regression-in-python-with-scikit-learn-83a8f7ae2b4f
 
-dataset = pd.read_csv('bibleoutput.csv')
+dataset = pd.read_csv('output.csv')
 #dataset.plot(x='polarity', y='subjectivity', style='o')
 
-#polarity is the variable and language is the label we will try to predict
-X = dataset['polarity'].values.reshape(-1,1)
-y = dataset['language'].values.reshape(-1,1)
+origPol = dataset['polarity'].iloc[0]
+origSub = dataset['subjectivity'].iloc[0]
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
+#calculate the deviation from the target polarity
+for i in range (1,len(dataset)):
+    lang = trPol = dataset['language'].iloc[i]
 
-regressor = LinearRegression()
-regressor.fit(X_train, y_train) #training the algorithm
+    trPol = dataset['polarity'].iloc[i]
+    trSub = dataset['subjectivity'].iloc[i]
 
-#To retrieve the intercept:
-print(regressor.intercept_)
-#For retrieving the slope:
-print(regressor.coef_)
+    devPol = abs(trPol - origPol)
+    devSub = abs(trSub - origSub)
 
-plt.title('Polarity vs Subjectivity')
-plt.xlabel('Polarity')
-plt.ylabel('Subjectivity')
-plt.show()
+    line = [devPol,devSub,lang]
+
+    with open('analyzeOutput.csv','a') as fd:
+        writer = csv.writer(fd)
+        writer.writerow(line)

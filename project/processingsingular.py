@@ -15,12 +15,12 @@ def pullTexts(textVec):
     #get the texts from project Gutenberg
     response = request.urlopen(url)
 
+    #get the encoding to decode to text
     encoding = response.info().get_content_charset()
 
     if(encoding is None):
         encoding = "ISO-8859-1"
 
-    print(encoding)
 
     try:
         raw = response.read().decode(encoding)
@@ -43,12 +43,13 @@ def pullTexts(textVec):
     line = [url,lang,len1,pol,subj]
 
     #write information in csv
-    with open('whooutput.csv','a') as fd:
+    with open('output.csv','a') as fd:
         writer = csv.writer(fd)
         writer.writerow(line)
 
 
-with open('whoinput.csv') as csvfile:
+with open('input.csv') as csvfile:
     input = csv.reader(csvfile, delimiter=',')
-    for row in input:
+    #go through each row in the input file and
+    for i,row in enumerate(input):
         pullTexts([row[0],row[1]])

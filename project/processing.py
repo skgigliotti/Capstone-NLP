@@ -18,6 +18,7 @@ def pullTexts(textVec):
     response1 = request.urlopen(url1)
     response2 = request.urlopen(url2)
 
+    #get the encoding
     encoding1 = response1.info().get_content_charset()
     encoding2 = response2.info().get_content_charset()
 
@@ -25,10 +26,7 @@ def pullTexts(textVec):
         encoding1 = "ISO-8859-1"
     if (encoding2 is None):
         encoding2 = "ISO-8859-1"
-
-    print(encoding1)
-    print(encoding2)
-
+        
     try:
         raw1 = response1.read().decode(encoding1)
 
@@ -63,10 +61,10 @@ def pullTexts(textVec):
     #write information in csv
     line = (url1 + "," + lang1 + "," + str(len1) + "," + str(pol1)+ "," + str(subj1)+ "," + url2 + "," + lang2 + "," + str(len2) + "," + str(pol2) + "," + str(subj2) + "," + str(diffP) + "," + str(diffS) + "\n")
 
-    with open('bibleoutput.csv','a') as fd:
+    with open('output.csv','a') as fd:
         fd.write(line)
 
-with open('bibleinput.csv') as csvfile:
+with open('input.csv') as csvfile:
     input = csv.reader(csvfile, delimiter=',')
     for row in input:
         pullTexts([row[0],row[1],row[2],row[3]])
