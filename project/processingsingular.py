@@ -1,4 +1,3 @@
-import nltk
 import csv
 import pandas as pd
 from urllib import request
@@ -6,6 +5,30 @@ from textblob import TextBlob
 from nltk.corpus import subjectivity,stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 
+VERBS = ["VBZ","VBP","VBN","VBG","VBD","VB"]
+ADV = ["RB","RBR","RBS","WRB"]
+ADJ = ["JJ","JJR","JJS"]
+def translateText(blob,targetLang):
+    newBlob = blob.translate(to=targetLang)
+
+    return newBlob
+
+def posCounts(posTags):
+    #prepare to count adj, adv, and verbs
+    adjCount = 0
+    advCount = 0
+    verbCount = 0
+    #helpful video for pos tagging https://www.youtube.com/watch?v=aWhqoPLr6Jg
+    for word,pos in posTags:
+        if pos in ADJ:
+            adjCount += 1
+
+        if pos in ADV:
+            advCount += 1
+
+        if pos in VERBS:
+            verbCount += 1
+    return [adjCount,advCount,verbCount]
 
 def pullTexts(textVec):
     url = textVec[0]
@@ -40,15 +63,31 @@ def pullTexts(textVec):
 
     subj = obj.sentiment.subjectivity
 
-    line = [url,lang,len1,pol,subj]
+    posTags = obj.pos_tags
+
+
+    counts = posCounts(posTags)
+
+    translatedObj = translateText(obj,"ru")
+
+    translatedPosTags = translatedObj.pos_tags
+
+    tCounts = posCounts(translatedPosTags)
+
+    tPol = translatedObj.sentiment.polarity
+
+    tSubj = translatedObj.sentiment.subjectivity
+
+
+    line = [url,lang,len1,pol,subj,counts[0],counts[1],counts[2],tPol,tSubj,tCounts[0],tCounts[1],tCounts[2]]
 
     #write information in csv
-    with open('output.csv','a') as fd:
+    with open('olympicsoutput.csv','a') as fd:
         writer = csv.writer(fd)
         writer.writerow(line)
 
 
-with open('input.csv') as csvfile:
+with open('olympicsinput.csv') as csvfile:
     input = csv.reader(csvfile, delimiter=',')
     #go through each row in the input file and
     for i,row in enumerate(input):
