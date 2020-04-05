@@ -68,27 +68,54 @@ def pullTexts(textVec):
 
     counts = posCounts(posTags)
 
-    translatedObj = translateText(obj,"ru")
+    if lang == 'english':
+        translatedObj = translateText(obj,"fr")
 
-    translatedPosTags = translatedObj.pos_tags
+        translatedPosTags = translatedObj.pos_tags
 
-    tCounts = posCounts(translatedPosTags)
+        tCounts = posCounts(translatedPosTags)
 
-    tPol = translatedObj.sentiment.polarity
+        tPol = translatedObj.sentiment.polarity
 
-    tSubj = translatedObj.sentiment.subjectivity
+        tSubj = translatedObj.sentiment.subjectivity
 
+    else:
+        tCounts = [0,0,0]
+        tPol = 0
+        tSubj = 0
 
     line = [url,lang,len1,pol,subj,counts[0],counts[1],counts[2],tPol,tSubj,tCounts[0],tCounts[1],tCounts[2]]
 
+    return line
+
+def writeData(line1,line2):
+    line2 = line2[0:8]
+
+    #difference between English and French polarity and subjectivity
+    polDiff = [abs(line1[3] - line2[3])]
+    subjDiff = [abs(line1[4] - line2[4])]
+
+    #difference between number of adjectives,adverbs,and verbs in the English and French versions
+    posDiff = [abs(line1[5] - line2[5]),abs(line1[6] - line2[6]),abs(line1[7] - line2[7])]
+
+    #difference between original and autotranslated polarity and subjectivity
+    tPolDiff = [abs(line1[3] - line1[8])]
+    tSubjDiff = [abs(line1[4] - line1[9])]
+
+    #difference between number of adjectives,adverbs,and verbs in the original and translated versions
+    tPosDiff = [abs(line1[5] - line1[10]),abs(line1[6] - line1[11]),abs(line1[7] - line1[12])]
+
     #write information in csv
-    with open('olympicsoutput.csv','a') as fd:
+    lineCombined = line1 + line2 + polDiff + subjDiff + posDiff + tPolDiff + tSubjDiff + tPosDiff
+
+    with open('enfroutput.csv','a') as fd:
         writer = csv.writer(fd)
-        writer.writerow(line)
+        writer.writerow(lineCombined)
 
-
-with open('olympicsinput.csv') as csvfile:
+with open('enfrinput.csv') as csvfile:
     input = csv.reader(csvfile, delimiter=',')
     #go through each row in the input file and
     for i,row in enumerate(input):
-        pullTexts([row[0],row[1]])
+        line1 = pullTexts([row[0],row[1]])
+        line2 = pullTexts([row[2],row[3]])
+        writeData(line1,line2)
