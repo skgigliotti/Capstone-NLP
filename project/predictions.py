@@ -5,7 +5,8 @@ from textblob import TextBlob
 from nltk.corpus import subjectivity,stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 
-bigramdict = {}
+frquenciesdict = {}
+transitionsdict = {}
 
 def pullTexts(textVec):
     url = textVec[0]
@@ -27,36 +28,51 @@ def pullTexts(textVec):
     except Exception as e:
         print(e)
 
-def createDictionary(text):
+def createDictionary(text,n):
     #split on words
-    words = text.split()
-
-    #initialize previous 2 words for bigram model
-    prev0 = words[0].lower()
-    #prev1 = words[1].lower()
-
+    words = text.lower().strip(",").replace("."," .").replace("!", " !").replace("?", " ?").replace("¿", "¿ ").split()
+    ngramdict = {}
     #go through all the words and put the frequencies in a ditionary
-    for w in words[1:]:
+    for i in range(len(words)-n+1):
 
-        bigram = prev0 + ' ' + w.lower()
+        ngram = words[i:i+n]
+        ngram = ' '.join(ngram)
 
-        if bigram in bigramdict.keys():
-            bigramdict[bigram] = bigramdict[bigram] + 1
+        if ngram in ngramdict.keys():
+            ngramdict[ngram] = ngramdict[ngram] + 1
         else:
-            bigramdict[bigram] = 1
+            ngramdict[ngram] = 1
 
-        #prev1 = prev0
-        #update previous value
-        prev0 = w.lower()
+    return ngramdict
+
+def calcProb(text,trans,overall):
+    words = text.lower().strip(",").replace("."," .").replace("!", " !").replace("?", " ?").replace("¿", "¿ ").split()
+    strwords = ' '.join(words)
+    substr = ' '.join(words[:len(words)-1])
+    if strwords in trans:
+        num = trans[strwords]
+
+        denom = overall[substr]
+
+        return num/denom
+
+    elif substr in overall:
+        return 0.01/overall[substr]
+    else:
+        return 0
 
 
-
-with open('enfrinput.csv') as csvfile:
-    input = csv.reader(csvfile, delimiter=',')
-    #go through each row in the input file and
-    #for i,row in enumerate(input):
-        #text = pullTexts([row[2],row[3]])
+def main():
     text = open('frolympics.txt','r').read()
-    createDictionary(text)
+    #blob = TextBlob(text)
+    text1 = input('Please enter your first option')
+    text2 = input('Please enter your second option')
+    frquenciesdict = createDictionary(text,len(text1.split())-1)
+    transitionsdict = createDictionary(text,len(text1.split()))
+    print(calcProb(texte1,transitionsdict,frquenciesdict))
+    print(calcProb(texte2,transitionsdict,frquenciesdict))
+    #print(sorted(transitionsdict.values()))
 
-    print(bigramdict)
+# main function calling
+if __name__=="__main__":
+    main()

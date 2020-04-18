@@ -66,7 +66,6 @@ def pullTexts(textVec):
 
     posTags = obj.pos_tags
 
-
     counts = posCounts(posTags)
 
     if lang == 'english':
@@ -113,10 +112,10 @@ def writeData(line1,line2):
         writer = csv.writer(fd)
         writer.writerow(lineCombined)
 
-with open('enfrinput.csv') as csvfile:
+with open('input.csv') as csvfile:
     input = csv.reader(csvfile, delimiter=',')
     #go through each row in the input file and
     for i,row in enumerate(input):
         line1 = pullTexts([row[0],row[1]])
         line2 = pullTexts([row[2],row[3]])
-        writeData(line1,line2)
+        #writeData(line1,line2)
