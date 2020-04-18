@@ -18,6 +18,7 @@ def posCounts(posTags):
     adjCount = 0
     advCount = 0
     verbCount = 0
+
     #helpful video for pos tagging https://www.youtube.com/watch?v=aWhqoPLr6Jg
     for word,pos in posTags:
         if pos in ADJ:
