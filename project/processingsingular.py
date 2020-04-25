@@ -8,6 +8,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 VERBS = ["VBZ","VBP","VBN","VBG","VBD","VB"]
 ADV = ["RB","RBR","RBS","WRB"]
 ADJ = ["JJ","JJR","JJS"]
+
 def translateText(blob,targetLang):
     newBlob = blob.translate(to=targetLang)
 
@@ -32,25 +33,13 @@ def posCounts(posTags):
     return [adjCount,advCount,verbCount]
 
 def pullTexts(textVec):
-    url = textVec[0]
+    txt = textVec[0]
 
     lang = textVec[1]
 
-    #get the texts from project Gutenberg
-    response = request.urlopen(url)
+    file = 'data/' + lang + '/' + txt
 
-    #get the encoding to decode to text
-    encoding = response.info().get_content_charset()
-
-    if(encoding is None):
-        encoding = "ISO-8859-1"
-
-
-    try:
-        raw = response.read().decode(encoding)
-
-    except Exception as e:
-        print(e)
+    raw = open(file,'r').read()
 
 
     #convert texts to textBlobs
@@ -68,8 +57,8 @@ def pullTexts(textVec):
 
     counts = posCounts(posTags)
 
-    if lang == 'english':
-        translatedObj = translateText(obj,"fr")
+    if lang == 'en':
+        translatedObj = translateText(obj,'fr')
 
         translatedPosTags = translatedObj.pos_tags
 
@@ -84,7 +73,7 @@ def pullTexts(textVec):
         tPol = 0
         tSubj = 0
 
-    line = [url,lang,len1,pol,subj,counts[0],counts[1],counts[2],tPol,tSubj,tCounts[0],tCounts[1],tCounts[2]]
+    line = [txt,lang,len1,pol,subj,counts[0],counts[1],counts[2],tPol,tSubj,tCounts[0],tCounts[1],tCounts[2]]
 
     return line
 
@@ -112,10 +101,10 @@ def writeData(line1,line2):
         writer = csv.writer(fd)
         writer.writerow(lineCombined)
 
-with open('input.csv') as csvfile:
+with open('enfrdata.csv') as csvfile:
     input = csv.reader(csvfile, delimiter=',')
     #go through each row in the input file and
     for i,row in enumerate(input):
         line1 = pullTexts([row[0],row[1]])
         line2 = pullTexts([row[2],row[3]])
-        #writeData(line1,line2)
+        writeData(line1,line2)
