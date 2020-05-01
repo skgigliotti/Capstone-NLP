@@ -11,3 +11,4 @@ class Post(models.Model):
 
 class Translation(models.Model):
     orginal = models.CharField(max_length=500)
+    target = models.CharField(max_length=500)
