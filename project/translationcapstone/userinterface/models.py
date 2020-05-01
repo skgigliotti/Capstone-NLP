@@ -8,3 +8,6 @@ class Question(models.Model):
 
 class Post(models.Model):
     post = models.CharField(max_length=500)
+
+class Translation(models.Model):
+    orginal = models.CharField(max_length=500)
