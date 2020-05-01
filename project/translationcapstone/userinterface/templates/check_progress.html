@@ -1,0 +1,8 @@
+<form action='.' method="POST">
+  {% csrf_token %}
+  <p>Original Text</p><input type="text" name="original"> <p>Language</p><input type="text" name="original_lang">
+  <br>
+  <p>Translated Text</p><input type="text" name="target"> <p>Language</p><input type="text" name="target_lang">
+  <br>
+  <input type="submit" value="Submit">
+</form>
