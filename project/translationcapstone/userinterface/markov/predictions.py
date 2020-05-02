@@ -77,12 +77,7 @@ def train(input_text):
         for i,row in enumerate(input):
             location = 'userinterface/markov/data/fr/'+row[2]
             files[row[2]] = open(location,'r').read()
-    #text = open('frolympics.txt','r').read()
-    #blob = TextBlob(text)
 
-    #return 1
-    #text1 = input('Please enter your first option')
-    #text2 = input('Please enter your second option')
 
     frquenciesdict = createDictionary(files,len(input_text[0].split())-1)
     transitionsdict = createDictionary(files,len(input_text[0].split()))

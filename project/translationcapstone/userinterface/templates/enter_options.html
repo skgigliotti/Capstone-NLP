@@ -27,12 +27,15 @@
   <input type="submit" value="Submit">
   {% if pol %}
     {% if pol.0 > pol.2 %}
-      <p>Your text is slightly more negative. {pol.0}</p>
+      <p>Your text is slightly more negative. </p>
+    {% endif %}
+    {% if pol.0 < pol.2 %}
+      <p>Your text is slightly more positive. </p>
     {% endif %}
     {% if sub.0 < sub.2 %}
-      <p>Your text is slightly more positive. {sub.0}</p>
+      <p>Work on making your translation less subjective. </p>
     {% endif %}
-    {% if sub.0 == sub.1 and pol.0 == pol.1 %}
+    {% if sub.0 == sub.2 and pol.0 == pol.2 %}
       <p>Looks good so far!<p>
     {% endif %}
   {% endif %}
