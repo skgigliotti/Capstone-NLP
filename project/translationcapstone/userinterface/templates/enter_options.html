@@ -1,4 +1,5 @@
 {% load static %}
+
 <form action='.' method="POST">
   {% csrf_token %}
   <p>Option 1</p><input type="text" name="option1">
@@ -6,6 +7,17 @@
   <p>Option 2</p><input type="text" name="option2">
   <br>
   <input type="submit" value="Submit">
+  {% if prob %}
+    {% if prob.0 > prob.1 %}
+      <p>Option 1 is most likely</p>
+    {% endif %}
+    {% if prob.0 < prob.1 %}
+      <p>Option 2 is most likely</p>
+    {% endif %}
+    {% if prob.0 == prob.1 %}
+      <p>No information<p>
+    {% endif %}
+  {% endif %}
   <br>
   <br>
   <p>Original Text</p><input rel="stylesheet" type="text/css" name="original">
@@ -13,4 +25,15 @@
   <p>Translated Text</p><input type="text" name="target">
   <br>
   <input type="submit" value="Submit">
+  {% if pol %}
+    {% if pol.0 > pol.2 %}
+      <p>Your text is slightly more negative. {pol.0}</p>
+    {% endif %}
+    {% if sub.0 < sub.2 %}
+      <p>Your text is slightly more positive. {sub.0}</p>
+    {% endif %}
+    {% if sub.0 == sub.1 and pol.0 == pol.1 %}
+      <p>Looks good so far!<p>
+    {% endif %}
+  {% endif %}
 </form>

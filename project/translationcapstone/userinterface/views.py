@@ -23,6 +23,10 @@ def index(request):
     return render(request, 'index.html', context)
 
 def markov_view(request):
+
+    probabilities = []
+    polarities = []
+    subjectivities = []
     if request.method == "POST":
         #get the different information from the form
         option1 = request.POST.get('option1')
@@ -34,11 +38,13 @@ def markov_view(request):
         if ((option1 != '') and (option2 != '')):
             texts = [option1,option2]
             probabilities = predictions.train(texts)
-            print(probabilities)
         if (( original != '') and ( target != '' )):
             texts = [original,target]
-            print(texts)
-            processingsingular.analyze(texts)
+
+            #this array contains [original pol, original subj, google pol, google subj, target pol, target subj]
+            results = processingsingular.analyze(texts)
+            polarities = [results[0], results[2],results[4]]
+            subjectivities = [results[1], results[3],results[5]]
             #Translation.objects.create(original=original,target=target)
-    context = {}
-    return render(request, "enter_options.html",context)
+    #context = {'originalP':'oPol','targetP':tPol}
+    return render(request, "enter_options.html",{'prob':probabilities,'pol':polarities,'sub': subjectivities})
